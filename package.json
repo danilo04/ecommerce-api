@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint models services routes",
+    "lint": "npx eslint models services routes",
     "test:coverage": "jest --coverage --detectOpenHandles --forceExit",
     "start": "nodemon server.js"
   },
