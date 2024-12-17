@@ -36,6 +36,11 @@ class CartService {
   }
 
   static async getCartItems(cartId) {
+    const cart = await Cart.findByPk(cartId)
+    if (!cart) {
+      return null;
+    }
+
     const items = await CartItem.findAll({
       where: { cartId },
       include: Product,
