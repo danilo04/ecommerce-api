@@ -36,6 +36,10 @@ class CartService {
   }
 
   static async getCartItems(cartId) {
+    if (isNaN(cartId)) {
+      throw new Error('Cart ID should be a number');
+    }
+
     const cart = await Cart.findByPk(cartId)
     if (!cart) {
       return null;
