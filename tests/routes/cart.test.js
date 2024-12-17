@@ -53,8 +53,10 @@ describe('Cart Routes', () => {
   });
 
   describe('GET /api/carts/:cartId/items', () => {
-    it('should return cart items with totals', async () => {
-
+    it('should return 404 when cart does not exist', async () => {
+      const response = await request(app)
+      .get('/api/carts/1/items')
+      .expect(404);
     });
   });
 });

@@ -27,7 +27,12 @@ router.post('/:cartId/items', async (req, res) => {
 router.get('/:cartId/items', async (req, res) => {
   try {
     const items = await CartService.getCartItems(req.params.cartId);
-    res.json(items);
+    if (items) {
+      res.json(items);
+    } else {
+      res.status(404).json({ error: "Cart doesn't exist" });
+    }
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
