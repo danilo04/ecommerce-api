@@ -53,8 +53,16 @@ describe('Cart Routes', () => {
   });
 
   describe('GET /api/carts/:cartId/items', () => {
-    it('should return cart items with totals', async () => {
+    it('should return 404 when cart does not exist', async () => {
+      const response = await request(app)
+      .get('/api/carts/1/items')
+      .expect(404);
+    });
 
+    it('should return 400 when cart id wrong format', async () => {
+      const response = await request(app)
+      .get('/api/carts/nonidad123/items')
+      .expect(400);
     });
   });
 });
