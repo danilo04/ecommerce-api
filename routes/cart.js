@@ -1,5 +1,6 @@
 const express = require('express');
 const CartService = require('../services/cartService');
+const CheckoutService = require('../services/checkoutService');
 const router = express.Router();
 
 // Create a new cart for a user
@@ -56,6 +57,27 @@ router.delete('/:cartId/items/:itemId', async (req, res) => {
     res.status(204).send();
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+// Charge the cart once and freeze the total
+router.post('/:cartId/checkout', async (req, res) => {
+  try {
+    const coupon = req.body ? req.body.coupon : undefined;
+    const order = await CheckoutService.checkout(req.params.cartId, coupon);
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(error.statusCode || 400).json({ error: error.message });
+  }
+});
+
+// Read the frozen order
+router.get('/:cartId/order', async (req, res) => {
+  try {
+    const order = await CheckoutService.getOrder(req.params.cartId);
+    res.json(order);
+  } catch (error) {
+    res.status(error.statusCode || 400).json({ error: error.message });
   }
 });
 

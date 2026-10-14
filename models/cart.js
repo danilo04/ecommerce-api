@@ -6,6 +6,11 @@ const Cart = sequelize.define('Cart', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'open',
+  },
 });
 
 module.exports = Cart;
